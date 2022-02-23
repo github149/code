@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=ss, initial-scale=1.0">
+    <link rel="stylesheet" href="./vc.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <style id="style">
+
+    </style>
+    <div id="text"></div>
+    <div class="container">
+        <div class="wrap">
+
+        </div>
+    </div>
+
+</body>
+<script>
+    let text = document.querySelector('#text')
+    let style = document.querySelector('#style')
+        //定义字符串为
+    let str = `/*大家好，我是小王同学，不是老王。
+    我现在要展示一段技能，
+    下面请看我的表演*/
+    body{
+        color:red;
+    }
+    .wrap{ 
+        position:fixed;
+        right:20px;
+        top:20px;
+        width:30vw;
+        height:30vw;
+        border:1px solid #ccc;
+        border-radius:50%;
+        background: linear-gradient(90deg, white 50%, black 50%);  
+            
+    }
+    .wrap::before{
+        content:'';
+        display:block;
+        width:50%;
+        height:50%;
+        top:0;
+        left:50%;
+        transform:translateX(50%);
+        border-radius:50%;
+        background:black;
+        background-image: radial-gradient(white 20%, black 20%);
+    }
+    .wrap::after{
+        content:'';
+        display:block;
+        width:50%;
+        height:50%;
+        bottom:0;
+        left:50%;
+        transform:translateX(50%);
+        border-radius:50%;
+        background:white;
+        background-image: radial-gradient( black 20%,white 20%);
+    }
+
+    `
+    let subStr = "";
+    let n = 1;
+
+    function step() {
+        setTimeout(() => {
+            //判断是否是回车
+            console.log(str[n - 1] == "\n")
+            if (str[n - 1] == "\n") {
+                console.log(n)
+                subStr += '<br>'
+            } else if (str[n - 1] == " ") {
+                subStr += '&nbsp;'
+            } else {
+                subStr += str[n - 1]
+            }
+
+            window.scrollTo(0, 99999);
+            text.scrollTo(0, 99999);
+            if (n <= str.length) {
+                //截取字符串，显示第一个字直到末尾
+                text.innerHTML = subStr
+                style.innerHTML = str.substring(0, n)
+                n++
+                step()
+            }
+            //监听滚动条的长度
+        }, 50)
+    }
+    step()
+</script>
+
+</html>
